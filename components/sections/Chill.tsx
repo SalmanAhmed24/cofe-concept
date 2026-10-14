@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { asset, type AssetName } from "@/lib/img";
 import { Arrow, Magnetic, Sparkle } from "@/components/ui/Magnetic";
 import { ChillFX } from "./fx";
@@ -33,9 +34,9 @@ export function Chill() {
       <div className="chill__foot">
         <p>Embark on a journey of cool, coffee-infused bliss — fourteen cafés and counting.</p>
         <Magnetic>
-          <a href="#cafes" className="btn btn--line">
+          <Link href="/cafes" className="btn btn--line">
             Find your café <Arrow />
-          </a>
+          </Link>
         </Magnetic>
         <p>Browse the cold bar and treat yourself to a refreshing escape.</p>
       </div>

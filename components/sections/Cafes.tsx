@@ -16,7 +16,7 @@ export function Cafes() {
   return (
     <CafesFX id="cafes" className="cafes" aria-labelledby="cafes-title">
       <div className="cafes__head">
-        <p className="eyebrow">Cafés · 04</p>
+        <p className="eyebrow">Cafés</p>
         <RevealTitle className="title cafes__title" id="cafes-title">
           Fourteen cafés. One slow ritual.
         </RevealTitle>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { asset, type AssetName } from "@/lib/img";
 import { Parallax, RevealTitle } from "@/components/ui/Reveal";
 import { Arrow, Magnetic, Sparkle } from "@/components/ui/Magnetic";
@@ -16,16 +17,16 @@ export function Craft() {
     <CraftFX id="craft" className="craft" aria-label="Our craft">
       <div className="feature feature--beans">
         <div className="feature__copy">
-          <p className="eyebrow">Sourcing · 02</p>
+          <p className="eyebrow">Sourcing</p>
           <RevealTitle className="title feature__title">Premium Arabica beans</RevealTitle>
           <p className="feature__text">
             We buy direct from three farms in Huila, Sidama and Chikmagalur — shade-grown, hand-picked at peak ripeness and roasted
             in-house every Tuesday. Paying 40% above Fairtrade isn&apos;t charity; it&apos;s how great coffee stays great.
           </p>
           <Magnetic>
-            <a href="#cafes" className="btn btn--solid">
-              Meet our farms <Arrow />
-            </a>
+            <Link href="/cafes" className="btn btn--solid">
+              Taste it in a café <Arrow />
+            </Link>
           </Magnetic>
         </div>
         <div className="feature__media">
@@ -60,7 +61,7 @@ export function Craft() {
           </Parallax>
         </div>
         <div className="feature__copy">
-          <p className="eyebrow">Method · 03</p>
+          <p className="eyebrow">Method</p>
           <RevealTitle className="title feature__title">Artisanal cold brewing</RevealTitle>
           <p className="feature__text">
             No heat, no shortcuts. Coarse-ground coffee rests in filtered water at fridge temperature for twenty hours, then runs

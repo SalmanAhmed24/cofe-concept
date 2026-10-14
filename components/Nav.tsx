@@ -1,28 +1,37 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, m, useMotionValueEvent, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const LINKS = [
-  { href: "#menu", label: "Menu" },
-  { href: "#craft", label: "Our craft" },
-  { href: "#cafes", label: "Cafés" },
-  { href: "#why", label: "Why cold" },
+export const LINKS = [
+  { href: "/menu", label: "Menu" },
+  { href: "/craft", label: "Our craft" },
+  { href: "/cafes", label: "Cafés" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/reviews", label: "Reviews" },
 ];
+
+/** Breakpoint where the full link row replaces the burger + overlay menu. Keep in sync with CSS. */
+const DESKTOP = "(min-width: 900px)";
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <a href="#top" className={`logo ${className ?? ""}`} aria-label="Mossbrew home">
+    <Link href="/" className={`logo ${className ?? ""}`} aria-label="Mossbrew home">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
         <ellipse cx="12" cy="12" rx="7" ry="10" transform="rotate(-28 12 12)" fill="currentColor" />
         <path d="M9 3.6c4 3.6-1.8 11.4 6 16.8" stroke="var(--forest)" strokeWidth="1.8" fill="none" strokeLinecap="round" />
       </svg>
       <span>MOSSBREW</span>
-    </a>
+    </Link>
   );
 }
 
+const isActive = (path: string, href: string) => path === href || path.startsWith(`${href}/`);
+
 export function Nav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [solid, setSolid] = useState(false);
@@ -33,6 +42,21 @@ export function Nav() {
     setHidden(y > prev && y > 240 && !open);
     setSolid(y > 40);
   });
+
+  // close the overlay on navigation…
+  useEffect(() => setOpen(false), [pathname]);
+
+  // …and whenever the viewport grows into desktop, so the two navs never coexist
+  useEffect(() => {
+    const mq = matchMedia(DESKTOP);
+    const check = () => mq.matches && setOpen(false);
+    mq.addEventListener("change", check);
+    window.addEventListener("resize", check, { passive: true });
+    return () => {
+      mq.removeEventListener("change", check);
+      window.removeEventListener("resize", check);
+    };
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle("menu-open", open);
@@ -50,16 +74,19 @@ export function Nav() {
       >
         <Logo />
         <nav aria-label="Primary" className="nav__links">
-          {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="nav__link">
-              <span data-text={l.label}>{l.label}</span>
-            </a>
-          ))}
+          {LINKS.map((l) => {
+            const active = isActive(pathname, l.href);
+            return (
+              <Link key={l.href} href={l.href} className={`nav__link ${active ? "is-active" : ""}`} aria-current={active ? "page" : undefined}>
+                <span data-text={l.label}>{l.label}</span>
+              </Link>
+            );
+          })}
         </nav>
         <div className="nav__actions">
-          <a href="#cafes" className="nav__cta">
+          <Link href="/cafes" className="nav__cta">
             Find a café
-          </a>
+          </Link>
           <button
             className={`burger ${open ? "is-open" : ""}`}
             aria-label={open ? "Close menu" : "Open menu"}
@@ -87,18 +114,23 @@ export function Nav() {
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
           >
             <ul>
-              {LINKS.map((l, i) => (
+              {[{ href: "/", label: "Home" }, ...LINKS].map((l, i) => (
                 <li key={l.href}>
-                  <m.a
-                    href={l.href}
-                    onClick={() => setOpen(false)}
+                  <m.div
                     initial={{ y: "110%" }}
                     animate={{ y: "0%" }}
                     exit={{ y: "110%" }}
                     transition={{ delay: 0.15 + i * 0.06, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    {l.label}
-                  </m.a>
+                    <Link
+                      href={l.href}
+                      onClick={() => setOpen(false)}
+                      className={pathname === l.href ? "is-active" : undefined}
+                      aria-current={pathname === l.href ? "page" : undefined}
+                    >
+                      {l.label}
+                    </Link>
+                  </m.div>
                 </li>
               ))}
             </ul>

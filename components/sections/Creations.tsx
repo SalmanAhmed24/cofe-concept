@@ -2,7 +2,8 @@ import Image from "next/image";
 import { asset, type AssetName } from "@/lib/img";
 import { InView } from "@/components/ui/InView";
 import { RevealTitle } from "@/components/ui/Reveal";
-import { Sparkle } from "@/components/ui/Magnetic";
+import { Arrow, Sparkle } from "@/components/ui/Magnetic";
+import Link from "next/link";
 
 const DRINKS = [
   {
@@ -28,10 +29,10 @@ const DRINKS = [
   },
 ];
 
-export function Creations() {
+export function Creations({ moreLink = false }: { moreLink?: boolean }) {
   return (
     <section id="menu" className="creations" aria-labelledby="menu-title">
-      <p className="eyebrow eyebrow--dark">The cold bar · 01</p>
+      <p className="eyebrow eyebrow--dark">The cold bar</p>
       <RevealTitle className="title title--dark creations__title" id="menu-title">
         Discover our iced coffee creations
       </RevealTitle>
@@ -62,6 +63,11 @@ export function Creations() {
           </InView>
         ))}
       </div>
+      {moreLink && (
+        <Link href="/menu" className="btn btn--dark creations__more">
+          See the full menu <Arrow />
+        </Link>
+      )}
     </section>
   );
 }

@@ -10,6 +10,30 @@ npm run dev        # http://localhost:3000
 npm run build && npm start
 ```
 
+## Pages
+
+| Route | What's there |
+| --- | --- |
+| `/` | 3D cup hero, marquee bands, signature drinks, explore cards, benefits, "Ready to chill" |
+| `/menu` | Signature cold drinks + full menu board (cold bar, hot bar, sweet counter) |
+| `/craft` | Sourcing & brewing story, stats, benefits |
+| `/cafes` | Pinned horizontal café gallery + A–Z list of all fourteen cafés |
+| `/gallery` | Coffee & dessert gallery with filters and a keyboard-friendly lightbox |
+| `/reviews` | Live Google reviews (see below) |
+
+Shared layout keeps the nav, footer, smooth scroll and cursor across routes; `app/template.tsx` adds a mint wipe + fade on client-side navigation (but never on the first page load, so LCP isn't delayed). On screens ≥ 900px only the link row shows; below that, the burger and full-screen menu take over.
+
+## Google reviews
+
+`/reviews` fetches your real reviews server-side from the Places API (New) and re-validates every 6 hours. Copy `.env.example` to `.env.local` and set:
+
+```
+GOOGLE_PLACES_API_KEY=…
+GOOGLE_PLACE_ID=…
+```
+
+Until both are set the page shows a clearly labelled setup notice with placeholder skeletons — no invented reviews. Google returns up to 5 reviews per place; the page links out to "See all on Google Maps" and "Write a review", and keeps Google's author/source attribution.
+
 ## How it's put together
 
 | Area | Notes |
@@ -23,7 +47,7 @@ npm run build && npm start
 
 ## Regenerating the product renders
 
-All imagery in `public/img` is rendered from the in-repo 3D models:
+All imagery in `public/img` — cups, iced drinks, beans, and the gallery's lattes, espresso, affogato, donuts, macarons, cake, cupcakes and cookies (`components/three/Treats.tsx`) — is rendered from in-repo 3D models:
 
 ```bash
 npm run dev -- -p 3100          # studio route is dev-only (/studio?scene=…)

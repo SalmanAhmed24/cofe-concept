@@ -13,7 +13,7 @@ const ROWS = [
 export function Benefits() {
   return (
     <section id="why" className="benefits" aria-labelledby="why-title">
-      <p className="eyebrow eyebrow--dark">Why cold · 05</p>
+      <p className="eyebrow eyebrow--dark">Why cold</p>
       <RevealTitle className="title title--dark benefits__title" id="why-title">
         Benefits of going cold
       </RevealTitle>

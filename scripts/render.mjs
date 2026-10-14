@@ -28,6 +28,17 @@ const SCENES = {
   beans: { w: 1100, h: 800 },
   bean: { w: 300, h: 300 },
   ice: { w: 300, h: 300 },
+  "g-donut-pink": { w: 800, h: 800 },
+  "g-donut-choc": { w: 800, h: 800 },
+  "g-macarons": { w: 800, h: 800 },
+  "g-cake": { w: 800, h: 800 },
+  "g-cupcake": { w: 800, h: 800 },
+  "g-cupcake-mint": { w: 800, h: 800 },
+  "g-cookies": { w: 800, h: 800 },
+  "g-latte": { w: 800, h: 800 },
+  "g-rosetta": { w: 800, h: 800 },
+  "g-espresso": { w: 800, h: 800 },
+  "g-affogato": { w: 800, h: 800 },
 };
 
 const wanted = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(SCENES);

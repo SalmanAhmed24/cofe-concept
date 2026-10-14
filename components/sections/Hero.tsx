@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Blob } from "@/components/ui/Blob";
 import { Arrow, Badge, Magnetic } from "@/components/ui/Magnetic";
@@ -151,9 +152,9 @@ export function Hero() {
           Small-batch Arabica, steeped cold for twenty slow hours. Smooth, low in acid, and poured over ice in fourteen cafés.
         </p>
         <Magnetic>
-          <a href="#menu" className="btn btn--line">
+          <Link href="/menu" className="btn btn--line">
             Discover the menu <Arrow />
-          </a>
+          </Link>
         </Magnetic>
         <Badge className="hero__badge" />
       </div>

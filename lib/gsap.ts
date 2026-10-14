@@ -24,6 +24,9 @@ export function loadGSAP(): Promise<GSAPKit> {
   return kit;
 }
 
+/** True once GSAP has been requested (never forces the download itself). */
+export const gsapRequested = () => kit !== null;
+
 let refreshTimer = 0;
 /** One debounced ScrollTrigger.refresh() after a burst of deferred setups (pins shift later triggers). */
 function scheduleRefresh(k: GSAPKit) {
